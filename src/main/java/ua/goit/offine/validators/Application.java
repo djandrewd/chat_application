@@ -1,4 +1,4 @@
-package ua.goit.offine.service;
+package ua.goit.offine.validators;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

@@ -1,4 +1,4 @@
-package ua.goit.offine.service;
+package ua.goit.offine.validators;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

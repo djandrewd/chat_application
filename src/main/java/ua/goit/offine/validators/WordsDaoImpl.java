@@ -1,4 +1,4 @@
-package ua.goit.offine.service;
+package ua.goit.offine.validators;
 
 import java.util.Arrays;
 import java.util.List;
