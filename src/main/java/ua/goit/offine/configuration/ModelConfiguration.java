@@ -57,8 +57,7 @@ public class ModelConfiguration {
   }
 
   @Bean
-  public HibernateTransactionManager transactionManager
-      (SessionFactory sessionFactory) {
+  public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
     return new HibernateTransactionManager(sessionFactory);
   }
 }
