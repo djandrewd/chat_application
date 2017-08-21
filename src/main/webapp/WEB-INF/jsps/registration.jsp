@@ -20,6 +20,7 @@
         <label>
             Group
             <select name="group" id="group">
+                <option id="option"></option>
             </select>
         </label>
         <div>
