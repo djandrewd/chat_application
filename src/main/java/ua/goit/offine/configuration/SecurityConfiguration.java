@@ -27,9 +27,11 @@ public class SecurityConfiguration extends
   @Override
   protected void configure(HttpSecurity http) throws Exception {
      http.authorizeRequests()
-             .anyRequest()
-             .authenticated()
+             .antMatchers("/registration", "/register").not().authenticated()
+             .anyRequest().authenticated()
          .and()
-         .formLogin();
+             .formLogin()
+         .and()
+             .csrf().disable();
   }
 }
