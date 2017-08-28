@@ -1,6 +1,6 @@
 package ua.goit.offine.configuration;
 
-import java.util.Properties;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
@@ -10,14 +10,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScan({"ua.goit.offine.dao", "ua.goit.offine.service"})
+@ComponentScan( {"ua.goit.offine.dao", "ua.goit.offine.service"})
 @PropertySource("classpath:database.properties")
 @EnableTransactionManagement
+@EnableJpaRepositories("ua.goit.offine.dao")
 public class ModelConfiguration {
 
   @Value("${db.url}")
@@ -42,24 +46,19 @@ public class ModelConfiguration {
   }
 
   @Bean
-  public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
-    LocalSessionFactoryBean bean = new LocalSessionFactoryBean();
-    // Set database connections
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+    HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+    jpaVendorAdapter.setDatabasePlatform(dialect);
+
+    LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
+    bean.setJpaVendorAdapter(jpaVendorAdapter);
     bean.setDataSource(dataSource);
-    // Set where to scan @Table and @Entity
     bean.setPackagesToScan("ua.goit.offine.entity");
-    // Set hibernate properties
-    Properties properties = new Properties();
-    properties.put("hibernate.dialect", dialect);
-    //properties.put("hibernate.show_sql", "true");
-    //properties.put("hibernate.format_sql", "true");
-    bean.setHibernateProperties(properties);
-    //
     return bean;
   }
 
   @Bean
-  public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-    return new HibernateTransactionManager(sessionFactory);
+  public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+    return new JpaTransactionManager(entityManagerFactory);
   }
 }

@@ -30,9 +30,9 @@ public class MvcConfiguration
     return resolver;
   }
 
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addViewController("/registration")
-            .setViewName("registration");
-  }
+//  @Override
+//  public void addViewControllers(ViewControllerRegistry registry) {
+//    registry.addViewController("/registration")
+//            .setViewName("registration");
+//  }
 }

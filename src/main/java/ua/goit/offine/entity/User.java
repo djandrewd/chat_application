@@ -1,6 +1,7 @@
 package ua.goit.offine.entity;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * User entity
@@ -71,6 +73,7 @@ public class User {
   public void setGroups(Set<Group> groups) {
     this.groups = groups;
   }
+
 
   @Override
   public String toString() {

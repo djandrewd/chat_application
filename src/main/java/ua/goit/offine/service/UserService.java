@@ -22,12 +22,12 @@ public class UserService {
 
   @Transactional(readOnly = true)
   public User getById(String id) {
-    return usersDao.getById(id, User.class);
+    return usersDao.findOne(id);
   }
 
   @Transactional(readOnly = true)
   public List<User> getAll() {
-    return usersDao.getAll(User.class);
+    return usersDao.findAll();
   }
 
   @Transactional
@@ -37,11 +37,11 @@ public class UserService {
 
   @Transactional
   public void update(User entity) {
-    usersDao.update(entity);
+    usersDao.save(entity);
   }
 
   @Transactional
   public void remove(User entity) {
-    usersDao.remove(entity);
+    usersDao.delete(entity);
   }
 }
