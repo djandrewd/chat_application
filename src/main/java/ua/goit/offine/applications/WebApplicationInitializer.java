@@ -4,6 +4,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import ua.goit.offine.configuration.ModelConfiguration;
 import ua.goit.offine.configuration.MvcConfiguration;
 import ua.goit.offine.configuration.SecurityConfiguration;
+import ua.goit.offine.configuration.WebSocketConfiguration;
 
 /**
  * Main application entry.
@@ -13,7 +14,8 @@ import ua.goit.offine.configuration.SecurityConfiguration;
 public class WebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return new Class[] {ModelConfiguration.class, SecurityConfiguration.class};
+    return new Class[] {ModelConfiguration.class, SecurityConfiguration.class,
+        WebSocketConfiguration.class};
   }
 
   @Override

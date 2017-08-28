@@ -5,10 +5,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 /**
  * Configuration for MVC security.
@@ -30,9 +32,9 @@ public class MvcConfiguration
     return resolver;
   }
 
-//  @Override
-//  public void addViewControllers(ViewControllerRegistry registry) {
-//    registry.addViewController("/registration")
-//            .setViewName("registration");
-//  }
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/*.css")
+            .addResourceLocations("/WEB-INF/css/");
+  }
 }

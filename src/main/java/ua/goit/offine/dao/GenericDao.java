@@ -13,5 +13,6 @@ import org.springframework.data.repository.NoRepositoryBean;
  * @author Andrey Minov
  */
 @NoRepositoryBean
-public interface GenericDao<K extends Serializable, V> extends JpaRepository<V, K> {
+public interface GenericDao<K extends Serializable, V>
+    extends JpaRepository<V, K> {
 }

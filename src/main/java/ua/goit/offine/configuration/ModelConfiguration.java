@@ -49,6 +49,7 @@ public class ModelConfiguration {
   public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
     HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
     jpaVendorAdapter.setDatabasePlatform(dialect);
+    jpaVendorAdapter.setShowSql(true);
 
     LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
     bean.setJpaVendorAdapter(jpaVendorAdapter);

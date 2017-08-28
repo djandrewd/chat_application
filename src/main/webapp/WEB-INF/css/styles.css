@@ -1,0 +1,15 @@
+#chatbox {
+    height: 400px;
+    width: 40%;
+    border: 1px solid;
+    overflow: auto;
+    font: 11px Arial;
+    text-align: left;
+    margin: 5px
+}
+
+#register {
+    margin: 5px;
+    text-align: left;
+    width: 10%;
+}
