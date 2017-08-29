@@ -1,7 +1,8 @@
 package ua.goit.offine.entity;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * User entity
@@ -21,7 +25,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
   @Id
   private String login;
   private String username;
@@ -29,9 +33,7 @@ public class User {
   @Column(name = "REGISTRATION_DATE")
   private Timestamp registrationDate;
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-  @JoinTable(name = "user_groups",
-             joinColumns = @JoinColumn(name = "user_login"),
-             inverseJoinColumns = @JoinColumn(name = "group_id"))
+  @JoinTable(name = "user_groups", joinColumns = @JoinColumn(name = "user_login"), inverseJoinColumns = @JoinColumn(name = "group_id"))
   private Set<Group> groups;
 
   public String getLogin() {
@@ -48,6 +50,36 @@ public class User {
 
   public void setUsername(String username) {
     this.username = username;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    Collection<GrantedAuthority> authorities = new ArrayList<>();
+    if (groups != null) {
+      groups.stream().map(Group::getRole).map(v -> "ROLE_" + v.name())
+            .forEach(v -> authorities.add(new SimpleGrantedAuthority(v)));
+    }
+    return authorities;
   }
 
   public String getPassword() {

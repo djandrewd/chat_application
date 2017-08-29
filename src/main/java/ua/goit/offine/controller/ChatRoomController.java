@@ -27,6 +27,7 @@ public class ChatRoomController {
   public ModelAndView chatPage() {
     ModelAndView modelAndView = new ModelAndView();
     modelAndView.setViewName("main");
+    modelAndView.addObject("chat", "public");
     modelAndView.addObject("messages",
         messageDao.getLastN(TOP_N));
     return modelAndView;

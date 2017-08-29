@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Chat application</title>
@@ -7,9 +8,15 @@
 <body>
 <p>Chat window</p>
 <div id="wrapper">
-    <var id="name" hidden>public</var>
     <div id="chatbox">
         <table id="messages">
+            <c:forEach var="message" items="${messages}">
+                <tr>
+                    <td hidden>${message.id}</td>
+                    <td><b>${message.user}</b></td>
+                    <td>${message.text}</td>
+                </tr>
+            </c:forEach>
         </table>
     </div>
     <form name="message" action="" method="post" id="message">
@@ -30,6 +37,7 @@
             let id = message.id;
 
             let row = $("<tr>");
+            row.append($("<td>").attr('hidden', 'true').text(id));
             row.append($("<td>").append($("<b>").text(user)));
             row.append($("<td>").text(text));
 
@@ -38,11 +46,11 @@
 
         $('#submitmsg').click(function () {
             let input = $('#usermsg');
-            let chat = $('#name').text();
+            let chat = '${chat}';
             let message = input.val();
             ws.send(JSON.stringify({
                 'chat': chat,
-                'message': message
+                'text': message
             }));
             input.val('');
             return false;
