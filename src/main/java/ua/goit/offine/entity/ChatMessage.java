@@ -35,6 +35,38 @@ public class ChatMessage {
   }
 
   @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    ChatMessage that = (ChatMessage) o;
+
+    if (id != that.id) {
+      return false;
+    }
+    if (text != null ? !text.equals(that.text) : that.text != null) {
+      return false;
+    }
+    if (chat != null ? !chat.equals(that.chat) : that.chat != null) {
+      return false;
+    }
+    return user != null ? user.equals(that.user) : that.user == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = (int) (id ^ (id >>> 32));
+    result = 31 * result + (text != null ? text.hashCode() : 0);
+    result = 31 * result + (chat != null ? chat.hashCode() : 0);
+    result = 31 * result + (user != null ? user.hashCode() : 0);
+    return result;
+  }
+
+  @Override
   public String toString() {
     return "ChatMessage{" + "id=" + id + ", text='" + text + '\'' + ", user='" + user + '\'' + '}';
   }

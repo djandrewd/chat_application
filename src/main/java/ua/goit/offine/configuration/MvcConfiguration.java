@@ -19,7 +19,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan("ua.goit.offine.controller")
+@ComponentScan({"ua.goit.offine.controller", "ua.goit.offine.service"})
 public class MvcConfiguration
     extends WebMvcConfigurerAdapter {
 

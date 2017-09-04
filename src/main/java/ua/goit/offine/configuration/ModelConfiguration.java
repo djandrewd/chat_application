@@ -16,7 +16,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScan( {"ua.goit.offine.dao", "ua.goit.offine.service"})
+@ComponentScan("ua.goit.offine.dao")
 @PropertySource("classpath:database.properties")
 @EnableTransactionManagement
 @EnableJpaRepositories("ua.goit.offine.dao")
